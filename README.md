@@ -29,6 +29,8 @@ then launch your program/game. The two programs need to be running under the
 same wineprefix, so if you're using Steam Play/Proton, you'll need to figure
 that out somehow.
 
+This program should automatically stop once the other program stops.
+
 Disclaimer
 ==========
 
