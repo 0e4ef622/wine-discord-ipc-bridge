@@ -205,7 +205,6 @@ int _tmain(VOID)
     DWORD  dwThreadId = 0;
     HANDLE hThread = NULL;
     LPCTSTR lpszPipename = TEXT("\\\\.\\pipe\\discord-ipc-0");
-    static const char socket_path[] = "/run/user/1000/discord-ipc-0";
 
     // The main loop creates an instance of the named pipe and
     // then waits for a client to connect to it. When the client
@@ -252,7 +251,6 @@ int _tmain(VOID)
 
         struct sockaddr_un addr;
         addr.sun_family = AF_UNIX;
-        StringCbCopyA(addr.sun_path, 100, socket_path);
 
         const char *const temp_path = get_temp_path();
 
