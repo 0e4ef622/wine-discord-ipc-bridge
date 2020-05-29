@@ -32,4 +32,4 @@ that out somehow.
 Disclaimer
 ==========
 
-I've only tested this with osu!.
+I've only tested this with osu! on Arch Linux.
