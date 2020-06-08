@@ -26,8 +26,8 @@ Usage
 
 Just run this program first, wait for it to start listening to the pipe, and
 then launch your program/game. The two programs need to be running under the
-same wineprefix, so if you're using Steam Play/Proton, you'll need to figure
-that out somehow.
+same wineprefix. If you're using Steam Play/Proton, download and follow the
+instructions in `winediscordipcbridge-steam.sh`.
 
 This program should automatically stop once the other program stops.
 

@@ -4,7 +4,7 @@
 # Set the game's launch options to: /path/to/this-script.sh %command%
 
 BRIDGE=/path/to/winediscordipcbridge.exe
-DELAY=10
+DELAY=10 # how many seconds to wait after starting the bridge before starting the game
 
 "$1" run "$BRIDGE" &
 sleep "$DELAY"
