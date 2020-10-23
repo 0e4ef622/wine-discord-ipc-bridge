@@ -40,9 +40,10 @@ then launch your program/game. The two programs need to be running under the
 same wineprefix. If you're using Steam Play/Proton, download and follow the
 instructions in `winediscordipcbridge-steam.sh`.
 
-This program should automatically stop once the other program stops.
+This program should automatically stop once the other program stops, although
+it'll keep running if nothing ever connects.
 
-Disclaimer
-==========
+I've personally tested this with osu! on both 32-bit and 64-bit wineprefixes,
+and Muse Dash using the script to launch from Steam.
 
-I've only tested this with osu! on Arch Linux with a 32-bit wineprefix.
+https://github.com/lhark/truckersmp-cli also [reported success](https://github.com/0e4ef622/wine-discord-ipc-bridge/issues/6#issuecomment-712266806).
