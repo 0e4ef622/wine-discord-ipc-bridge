@@ -25,13 +25,6 @@ struct sockaddr_un {
 
 #pragma endregion wine-specific header thingy
 #pragma region
-__declspec(naked) unsigned int l_getpid() {
-    __asm__ (
-            "mov eax, 0x14\n\t"
-            "int 0x80\n\t"
-            "ret"
-            );
-}
 __declspec(naked) int l_close(int fd) {
     __asm__ (
             "push ebx\n\t"
@@ -51,20 +44,6 @@ __declspec(naked) int l_socketcall(int call, void* args) {
             "mov eax, 0x66\n\t"
             "mov ebx, [esp + 4 + 4]\n\t"
             "mov ecx, [esp + 4 + 8]\n\t"
-            "int 0x80\n\t"
-
-            "pop ebx\n\t"
-            "ret"
-            );
-}
-__declspec(naked) int l_fcntl(unsigned int fd, unsigned int cmd, unsigned long arg) {
-    __asm__ (
-            "push ebx\n\t"
-
-            "mov eax, 0x37\n\t"
-            "mov ebx, [esp + 4 + 4]\n\t"
-            "mov ecx, [esp + 4 + 8]\n\t"
-            "mov edx, [esp + 4 + 12]\n\t"
             "int 0x80\n\t"
 
             "pop ebx\n\t"
