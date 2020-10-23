@@ -1,6 +1,8 @@
 Wine Discord IPC Bridge
 =======================
 
+This is the `winegcc` branch, where the code isn't nearly as janky.
+
 This program enables other programs which are running under Wine to send Rich
 Presence data to a Linux Discord client.
 
@@ -19,10 +21,17 @@ something like that.
 Compiling
 =========
 
-    i686-w64-mingw32-gcc -masm=intel main.c -o winediscordipcbridge
+    winegcc -m32 main.c -o winediscordipcbridge
+
+Or, for 64-bit:
+
+    winegcc main.c -o winediscordipcbridge
 
 Usage
 =====
+
+To run the bridge, either call `winediscordipcbridge.exe`, or `wine
+winediscordipcbridge.exe.so`. The former is just a script that does the latter.
 
 Just run this program first, wait for it to start listening to the pipe, and
 then launch your program/game. The two programs need to be running under the
