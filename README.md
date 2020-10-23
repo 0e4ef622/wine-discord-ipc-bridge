@@ -27,6 +27,8 @@ Or, for 64-bit:
 
     winegcc main.c -o winediscordipcbridge
 
+The binary included in the repository is 32-bit.
+
 Usage
 =====
 
