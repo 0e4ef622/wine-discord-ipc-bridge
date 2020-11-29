@@ -1,12 +1,25 @@
 #!/bin/sh
 
 # Run a Steam Play game with wine-discord-ipc-bridge
-# Set the game's launch options to: /path/to/this-script.sh %command%
+# Set the game's launch option to: path/to/this-script.sh %command%
 
-BRIDGE=/path/to/winediscordipcbridge.exe
-DELAY=10 # how many seconds to wait after starting the bridge before starting the game
+BRIDGE="/path/to/winediscordipcbridge.exe"
+DELAY=1
 
-"$1" run "$BRIDGE" &
-sleep "$DELAY"
-"$1" run "${@:3}"
+# Extract and run the proton command without the steam runtime container (see #8)
+runtimecmd=()
+protoncmd=()
+for arg in "$@"; do
+    if [ "${runtimecmd[-1]}" == "--" ]; then
+        protoncmd+=("$arg");
+    else
+        runtimecmd+=("$arg");
+    fi
+done
 
+gamecmd=("${protoncmd[@]:2}")
+protoncmd=("${protoncmd[@]:0:2}")
+
+"${protoncmd[@]}" "$BRIDGE" &
+sleep $DELAY
+"${protoncmd[@]//waitforexitandrun/run}" "${gamecmd[@]}"
