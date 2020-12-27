@@ -20,6 +20,12 @@ done
 gamecmd=("${protoncmd[@]:2}")
 protoncmd=("${protoncmd[@]:0:2}")
 
+# If no -- is detected, we're probably running Proton 5.0-10 or older
+if [ -z "${protoncmd}" ]; then
+    protoncmd=("${@:1:2}")
+    gamecmd=("${@:3}")
+fi
+
 "${protoncmd[@]}" "$BRIDGE" &
 sleep $DELAY
 "${protoncmd[@]//waitforexitandrun/run}" "${gamecmd[@]}"
