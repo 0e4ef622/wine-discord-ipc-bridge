@@ -4,7 +4,7 @@
 # Set the game's launch option to: path/to/this-script.sh %command%
 
 BRIDGE="$(dirname ${BASH_SOURCE[0]})/winediscordipcbridge.exe" # Set BRIDGE to the path of winediscordipcbridge.exe
-DELAY=1
+DELAY=5
 
 # Extract and run the proton command without the steam runtime container (see #8)
 runtimecmd=()
