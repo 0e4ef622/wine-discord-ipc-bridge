@@ -3,7 +3,7 @@
 # Run a Steam Play game with wine-discord-ipc-bridge
 # Set the game's launch option to: path/to/this-script.sh %command%
 
-BRIDGE="/path/to/winediscordipcbridge.exe"
+BRIDGE="$(dirname ${BASH_SOURCE[0]})/winediscordipcbridge.exe" # Set BRIDGE to the path of winediscordipcbridge.exe
 DELAY=1
 
 # Extract and run the proton command without the steam runtime container (see #8)
