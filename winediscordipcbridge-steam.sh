@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Run a Steam Play game with wine-discord-ipc-bridge
 # Set the game's launch option to: path/to/this-script.sh %command%
