@@ -6,6 +6,11 @@
 BRIDGE="$(dirname ${BASH_SOURCE[0]})/winediscordipcbridge.exe" # Set BRIDGE to the path of winediscordipcbridge.exe
 DELAY=5
 
+if [[ $1 == "" ]]; then
+    echo "Error: please specify argument after script (EX: ./winedriscordipcbridge-steam.sh wine")
+    exit 1
+fi
+
 # Extract and run the proton command without the steam runtime container (see #8)
 runtimecmd=()
 protoncmd=()
