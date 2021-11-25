@@ -3,29 +3,14 @@
 # Run a Steam Play game with wine-discord-ipc-bridge
 # Set the game's launch option to: path/to/this-script.sh %command%
 
-BRIDGE="$(dirname ${BASH_SOURCE[0]})/winediscordipcbridge.exe" # Set BRIDGE to the path of winediscordipcbridge.exe
-DELAY=5
+# Change BRIDGE to the path of winediscordipcbridge.exe
+# Defaults to looking in the same directory as the script.
+BRIDGE="$(dirname ${BASH_SOURCE[0]})/winediscordipcbridge.exe"
 
-# Extract and run the proton command without the steam runtime container (see #8)
-runtimecmd=()
-protoncmd=()
-for arg in "$@"; do
-    if [ "${runtimecmd[-1]}" == "--" ]; then
-        protoncmd+=("$arg");
-    else
-        runtimecmd+=("$arg");
-    fi
-done
+TEMP_PATH="$XDG_RUNTIME_DIR"
+TEMP_PATH=${TEMP_PATH:-"$TMPDIR"}
+TEMP_PATH=${TEMP_PATH:-"$TMP"}
+TEMP_PATH=${TEMP_PATH:-"$TEMP"}
+TEMP_PATH=${TEMP_PATH:-"/tmp"}
 
-gamecmd=("${protoncmd[@]:2}")
-protoncmd=("${protoncmd[@]:0:2}")
-
-# If no -- is detected, we're probably running Proton 5.0-10 or older
-if [ -z "${protoncmd}" ]; then
-    protoncmd=("${@:1:2}")
-    gamecmd=("${@:3}")
-fi
-
-"${protoncmd[@]}" "$BRIDGE" &
-sleep $DELAY
-"${protoncmd[@]//waitforexitandrun/run}" "${gamecmd[@]}"
+PROTON_REMOTE_DEBUG_CMD="$BRIDGE" PRESSURE_VESSEL_FILESYSTEMS_RW="$TEMP_PATH" "$@"
