@@ -34,7 +34,7 @@ Alternatively, you can directly use the command below instead of the shell
 script. Replace `{userid}` with your user id (probably 1000). Properties ->
 General -> Launch Options:
 
-    PROTON_REMOTE_DEBUG_CMD=/path/to/winediscordipcbridge.exe PRESSURE_VESSEL_FILESYSTEMS_RW="/run/user/{userid}" %command%
+    PROTON_REMOTE_DEBUG_CMD=/path/to/winediscordipcbridge.exe PRESSURE_VESSEL_FILESYSTEMS_RW="/run/user/{userid}/discord-ipc-0" %command%
 
 The bridge should automatically stop once the connecting program terminates, although
 it'll keep running if nothing ever connects.

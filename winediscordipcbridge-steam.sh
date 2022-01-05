@@ -13,4 +13,11 @@ TEMP_PATH=${TEMP_PATH:-"$TMP"}
 TEMP_PATH=${TEMP_PATH:-"$TEMP"}
 TEMP_PATH=${TEMP_PATH:-"/tmp"}
 
-PROTON_REMOTE_DEBUG_CMD="$BRIDGE" PRESSURE_VESSEL_FILESYSTEMS_RW="$TEMP_PATH" "$@"
+for i in {0..9}; do
+    if [ -S "$TEMP_PATH/discord-ipc-$i" ]; then
+        IPC_PATH="$TEMP_PATH/discord-ipc-$i";
+        break;
+    fi
+done
+
+PROTON_REMOTE_DEBUG_CMD="$BRIDGE" PRESSURE_VESSEL_FILESYSTEMS_RW="$IPC_PATH" "$@"
