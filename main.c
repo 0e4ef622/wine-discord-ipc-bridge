@@ -246,6 +246,20 @@ int _tmain(VOID)
                 break;
             }
         }
+        if (!connected) {
+            for (int pipeNum = 0; pipeNum < 10; ++pipeNum) {
+
+                snprintf(addr.sun_path, sizeof(addr.sun_path), "%s/app/com.discordapp.Discord/discord-ipc-%d", temp_path, pipeNum);
+                printf("Attempting to connect to %s\n", addr.sun_path);
+
+                if (l_connect(sock_fd, (struct sockaddr*) &addr, sizeof(addr)) < 0) {
+                    printf("Failed to connect\n");
+                } else {
+                    connected = 1;
+                    break;
+                }
+            }
+        }
 
         if (!connected) {
             printf("Could not connect to discord client\n");
