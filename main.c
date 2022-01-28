@@ -233,33 +233,24 @@ int _tmain(VOID)
 
         const char *const temp_path = get_temp_path();
 
+        char *paths[] = {"%s/discord-ipc-%d", "%s/app/com.discordapp.Discord/discord-ipc-%d"};
+
         char connected = 0;
-        for (int pipeNum = 0; pipeNum < 10; ++pipeNum) {
-
-            snprintf(addr.sun_path, sizeof(addr.sun_path), "%s/discord-ipc-%d", temp_path, pipeNum);
-            printf("Attempting to connect to %s\n", addr.sun_path);
-
-            if (l_connect(sock_fd, (struct sockaddr*) &addr, sizeof(addr)) < 0) {
-                printf("Failed to connect\n");
-            } else {
-                connected = 1;
-                break;
-            }
-        }
-        if (!connected) {
+        for (int p = 0; p < sizeof(paths) / sizeof(paths[0]); p++) {
             for (int pipeNum = 0; pipeNum < 10; ++pipeNum) {
 
-                snprintf(addr.sun_path, sizeof(addr.sun_path), "%s/app/com.discordapp.Discord/discord-ipc-%d", temp_path, pipeNum);
+                snprintf(addr.sun_path, sizeof(addr.sun_path), paths[p], temp_path, pipeNum);
                 printf("Attempting to connect to %s\n", addr.sun_path);
 
                 if (l_connect(sock_fd, (struct sockaddr*) &addr, sizeof(addr)) < 0) {
                     printf("Failed to connect\n");
                 } else {
                     connected = 1;
-                    break;
+                    goto breakout;
                 }
             }
         }
+breakout:;
 
         if (!connected) {
             printf("Could not connect to discord client\n");
