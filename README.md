@@ -42,4 +42,4 @@ it'll keep running if nothing ever connects.
 I've personally tested this with osu! on both 32-bit and 64-bit wineprefixes,
 and Muse Dash using the script to launch from Steam with Proton 6.3-8.
 
-https://github.com/lhark/truckersmp-cli also [reported success](https://github.com/0e4ef622/wine-discord-ipc-bridge/issues/6#issuecomment-712266806).
+https://github.com/truckersmp-cli/truckersmp-cli also [reported success](https://github.com/0e4ef622/wine-discord-ipc-bridge/issues/6#issuecomment-712266806).
