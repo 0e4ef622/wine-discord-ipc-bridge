@@ -17,11 +17,19 @@ TEMP_PATH=${TEMP_PATH:-"/tmp"}
 # Attempt to include the discord-ipc-* entries and the bridge path
 # in the pressure vessel container mount directly.
 # https://github.com/0e4ef622/wine-discord-ipc-bridge/issues/22
-if ls "$TEMP_PATH"/discord-ipc-? &>/dev/null;then
-    entries=("$BRIDGE_PATH" $(ls "$TEMP_PATH"/discord-ipc-?))
-    VESSEL_PATH=$(IFS=:;printf '%s' "${entries[*]}")
-else
-    VESSEL_PATH="$BRIDGE_PATH"
-fi
+VESSEL_PATH="$BRIDGE"
+DISCORD_IPC_PATHS=(
+    "$TEMP_PATH"
+    "$TEMP_PATH/app/com.discordapp.Discord"
+    "$TEMP_PATH/snap.discord-canary"
+    "$TEMP_PATH/snap.discord"
+)
+
+for ipc_path in "${DISCORD_IPC_PATHS[@]}"; do
+    if [ -S "$ipc_path"/discord-ipc-? ]; then
+        VESSEL_PATH="$BRIDGE:$(echo "$ipc_path"/discord-ipc-?)"
+        break
+    fi
+done
 
 PROTON_REMOTE_DEBUG_CMD="$BRIDGE" PRESSURE_VESSEL_FILESYSTEMS_RW="$VESSEL_PATH" "$@"

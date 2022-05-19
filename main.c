@@ -233,7 +233,12 @@ int _tmain(VOID)
 
         const char *const temp_path = get_temp_path();
 
-        char *paths[] = {"%s/discord-ipc-%d", "%s/app/com.discordapp.Discord/discord-ipc-%d"};
+        char *paths[] = {
+            "%s/discord-ipc-%d",
+            "%s/app/com.discordapp.Discord/discord-ipc-%d",
+            "%s/snap.discord-canary/discord-ipc-%d",
+            "%s/snap.discord/discord-ipc-%d"
+        };
 
         char connected = 0;
         for (int p = 0; p < sizeof(paths) / sizeof(paths[0]); p++) {
