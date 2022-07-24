@@ -23,7 +23,7 @@ DISCORD_IPC_PATHS=(
     "$TEMP_PATH/app/com.discordapp.Discord"
     "$TEMP_PATH/snap.discord-canary"
     "$TEMP_PATH/snap.discord"
-    "run/user/$UID"
+    "/run/user/$UID"
 )
 
 for ipc_path in "${DISCORD_IPC_PATHS[@]}"; do
