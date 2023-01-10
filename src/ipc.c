@@ -110,7 +110,7 @@ breakout:;
         }
 
 
-        while(bStandalone) {
+        while(bStandalone || bListening()) {
             char buf[BUFSIZE];
             DWORD bytes_read = 0;
             BOOL fSuccess = ReadFile(

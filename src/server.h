@@ -4,5 +4,6 @@
 #include <windef.h>
 
 int  iServerLoop(BOOL);
+BOOL bListening(VOID);
 
 #endif /* __SERVER_H__ */
