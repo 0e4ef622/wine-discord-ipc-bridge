@@ -35,13 +35,15 @@ obj/%.o: src/%.c
 
 all: $(OUTPUT)
 
+obj/service-manager.o: src/error.h
+
 $(OUTPUT): $(<<objects>>)
 	$(<<) "LINK\t$(@)"
 	@$(CC) $(^) -o $(@) -lshlwapi
 
 clean:
-	@rm -fv $(<<objects>>) $(OUTPUT) rcs/* $(<<mcs>>:res/%.mc=src/%.h) $(<<rcs>>:res/%.rc=src/%.h)
-	@rm -rf rcs
+	@rm -fv $(<<objects>>) rcs/* $(<<mcs>>:res/%.mc=src/%.h) $(<<rcs>>:res/%.rc=src/%.h) $(OUTPUT)
+	@rm -rf rcs obj
 
 .PHONY: clean all
 .INTERMEDIATE: $(<<mcs>>:res/%.mc=src/%.h) $(<<rcs>>:res/%.rc=src/%.h) $(<<mcs>>:res/%.mc=rcs/%.rc)

@@ -4,6 +4,7 @@
 #include "server.h"
 #include "service-manager.h"
 #include "service.h"
+#include "error.h"
 
 int iAddService()
 {
@@ -108,5 +109,25 @@ int iRunService()
 
 VOID vReportError(LPTSTR szFunction)
 {
-	NOT_IMPLEMENTED();
+	HANDLE  hEvSrc;
+	LPCTSTR lpszStrs[2];
+	TCHAR   tcBuf[80];
+
+	hEvSrc = RegisterEventSource(NULL, SVCNAME);
+
+	if(hEvSrc) {
+		StringCchPrintf(tcBuf, 80, TEXT("%s failed with %d"), szFunction, GetLastError());
+		lpszStrs[0] = SVCNAME;
+		lpszStrs[1] = tcBuf;
+
+		ReportEvent(hEvSrc,              // event log handle
+		            EVENTLOG_ERROR_TYPE, // event type
+		            0,                   // event category
+		            SVC_ERROR,           // event identifier
+		            NULL,                // no security identifier
+		            2,                   // size of lpszStrings array
+		            0,                   // no binary data
+		            lpszStrs,            // array of strings
+		            NULL);
+	}
 }
