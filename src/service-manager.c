@@ -3,8 +3,7 @@
 #include <strsafe.h>
 #include "server.h"
 #include "service-manager.h"
-
-#define NOT_IMPLEMENTED(X) _tprintf(TEXT("Not Implemented.\n")); return X
+#include "service.h"
 
 int iAddService()
 {
@@ -96,10 +95,18 @@ int iDelService(void)
 
 int iRunService()
 {
-	NOT_IMPLEMENTED(1);
+	SERVICE_TABLE_ENTRY DispatchTable[] = {
+		{ SVCNAME, (LPSERVICE_MAIN_FUNCTION) vSvcMain },
+		{ NULL, NULL }
+	};
+
+	if (StartServiceCtrlDispatcher( DispatchTable )) return 0;
+
+	vReportError(TEXT("StartServiceCtrlDispatcher"));
+	return 1;
 }
 
-BOOL bListening()
+VOID vReportError(LPTSTR szFunction)
 {
-	NOT_IMPLEMENTED(FALSE);
+	NOT_IMPLEMENTED();
 }
