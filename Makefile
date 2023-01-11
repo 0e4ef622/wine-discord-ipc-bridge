@@ -22,7 +22,7 @@ endif
 
 src/%.h rcs/%.rc : res/%.mc
 	$(<<) "   MC\t"$(<)
-	@mkdir -p rcs && $(MC) -h src -r rcs $(<)
+	@mkdir -p rcs && $(MC) -b -h src -r rcs $(<)
 
 obj/%.rc.o: res/%.rc
 	$(<<) "   RC\t"$(@)
