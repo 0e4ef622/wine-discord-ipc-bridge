@@ -3,7 +3,7 @@
 
 #include <windef.h>
 
-int  iServerLoop(BOOL);
+int  iServerMain(BOOL);
 BOOL bSvcRunning(VOID);
 
 #endif /* __SERVER_H__ */

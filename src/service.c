@@ -3,11 +3,11 @@
 
 #include "service.h"
 #include "server.h"
-#define PRIVATE // private functions
+#define PRIVATE static // private functions
 
-static SERVICE_STATUS          gSvcStatus;
-static SERVICE_STATUS_HANDLE   gSvcStatusHandle;
-static HANDLE                  ghSvcStopEvent = NULL;
+PRIVATE SERVICE_STATUS          gSvcStatus;
+PRIVATE SERVICE_STATUS_HANDLE   gSvcStatusHandle;
+PRIVATE HANDLE                  ghSvcStopEvent = NULL;
 
 PRIVATE VOID vReportState(DWORD, DWORD, DWORD);
 PRIVATE VOID WINAPI vHandleEvent(DWORD);
@@ -42,14 +42,16 @@ VOID WINAPI vSvcMain(DWORD dw, LPTSTR * str)
 	                     FALSE,   // not signaled
 	                     NULL);   // no name
 
-	if ( ghSvcStopEvent == NULL) {
+	if ( ghSvcStopEvent == NULL)
+	{
 		vReportState( SERVICE_STOPPED, GetLastError(), 0 );
 		return;
 	}
 
 	vReportState( SERVICE_RUNNING, NO_ERROR, 0 );
-	while(bSvcRunning()) {
-		iServerLoop(FALSE);
+	while(bSvcRunning())
+	{
+		iServerMain(FALSE);
 	}
 
 	vReportState( SERVICE_STOPPED, NO_ERROR, 0 );
@@ -68,7 +70,7 @@ PRIVATE VOID vReportState(DWORD dwCState, DWORD dwW32ECode, DWORD dwWHint)
 		gSvcStatus.dwControlsAccepted = SERVICE_ACCEPT_STOP;
 
 	if ( (dwCState == SERVICE_RUNNING) ||
-	     (dwCState == SERVICE_STOPPED) )
+	        (dwCState == SERVICE_STOPPED) )
 		gSvcStatus.dwCheckPoint = 0;
 	else gSvcStatus.dwCheckPoint = dwCheckPoint++;
 
@@ -78,7 +80,8 @@ PRIVATE VOID vReportState(DWORD dwCState, DWORD dwW32ECode, DWORD dwWHint)
 
 PRIVATE VOID WINAPI vHandleEvent(DWORD dwCtrl)
 {
-	switch(dwCtrl) {
+	switch(dwCtrl)
+	{
 	case SERVICE_CONTROL_STOP:
 		vReportState(SERVICE_STOP_PENDING, NO_ERROR, 0);
 		SetEvent(ghSvcStopEvent);
