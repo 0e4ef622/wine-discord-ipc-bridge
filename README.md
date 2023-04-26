@@ -15,7 +15,9 @@ The way it works is simply by bridging the gap between Windows named pipes
 Compiling
 =========
 
-    i686-w64-mingw32-gcc -masm=intel main.c -o winediscordipcbridge
+```sh
+make
+```
 
 Usage (Wine)
 ============
@@ -23,6 +25,18 @@ Usage (Wine)
 Start the bridge first, wait for it to start listening to the pipe, and
 then launch your program/game. The two programs need to be running under the
 same wineprefix.
+
+Usage (wine service)
+====================
+
+```sh
+WINEPREFIX=<prefix-path> wine ./winediscordipcbridge.exe install
+```
+
+Run this (^) snippet to install the bridge as a service, next time you start
+anything in wine, the bridge will automatically start and connect your game
+and discord.
+
 
 Usage (Steam Proton)
 ====================
