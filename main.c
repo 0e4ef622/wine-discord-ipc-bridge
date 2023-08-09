@@ -300,9 +300,13 @@ breakout:;
             }
 
             printf("%d bytes w->l\n", bytes_read);
-            /* uncomment to dump the actual data being passed from the pipe to the socket */
-            /* for(int i=0;i<bytes_read;i++)putchar(buf[i]); */
-            /* printf("\n"); */
+            /* If WDB_DEBUG is set, then dump the contents of the message to stdout */
+            const char* wdb_debug_env = getenv_("WDB_DEBUG");
+            if (wdb_debug_env && strcmp(wdb_debug_env, "1") == 0) {
+                for (int i = 0; i < bytes_read; i++)
+                    putchar(buf[i]);
+                printf("\n");
+            }
 
             int total_written = 0, written = 0;
 
@@ -339,9 +343,13 @@ DWORD WINAPI winwrite_thread(LPVOID lpvParam) {
         }
 
         printf("%d bytes l->w\n", bytes_read);
-        /* uncomment to dump the actual data being passed from the socket to the pipe */
-        /* for(int i=0;i<bytes_read;i++)putchar(buf[i]); */
-        /* printf("\n"); */
+        /* If WDB_DEBUG is set, then dump the contents of the message to stdout */
+        const char* wdb_debug_env = getenv_("WDB_DEBUG");
+        if (wdb_debug_env && strcmp(wdb_debug_env, "1") == 0) {
+            for (int i = 0; i < bytes_read; i++)
+                putchar(buf[i]);
+            printf("\n");
+        }
 
         DWORD total_written = 0, cbWritten = 0;
 
