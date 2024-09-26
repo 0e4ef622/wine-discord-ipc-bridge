@@ -46,3 +46,9 @@ I've personally tested this with osu! on both 32-bit and 64-bit wineprefixes,
 and Muse Dash using the script to launch from Steam with Proton Experimental.
 
 https://github.com/truckersmp-cli/truckersmp-cli also [reported success](https://github.com/0e4ef622/wine-discord-ipc-bridge/issues/6#issuecomment-712266806).
+
+Related Projects
+================
+* https://github.com/Techno-coder/macOS-wine-bridge (fork)
+* https://github.com/EnderIce2/rpc-bridge (alternative implementation)
+* https://github.com/openglfreak/winestreamproxy (alternative implementation)
