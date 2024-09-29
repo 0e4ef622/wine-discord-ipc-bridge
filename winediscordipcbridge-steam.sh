@@ -23,6 +23,7 @@ DISCORD_IPC_PATHS=(
     "$TEMP_PATH/app/com.discordapp.Discord"
     "$TEMP_PATH/snap.discord-canary"
     "$TEMP_PATH/snap.discord"
+    "$TEMP_PATH/usr/bin/discord"
     "/run/user/$UID"
 )
 
